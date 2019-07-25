@@ -5,13 +5,31 @@ import selectExpenses from '../selectors/expensesSelector';
 
 const ExpenseList = (props) => {
 
-  const renderList = props.expenses.map((expense, index) => <ExpenseListItem {...expense} key={expense.id} />);
+  const renderList = () => {
+    if (props.expenses.length === 0 ) {
+      return (
+        <div className="list-item list-item--message">
+          <span>No expenses</span>
+        </div>
+      );
+    }
+
+    return props.expenses.map((expense, index) => <ExpenseListItem {...expense} key={expense.id} />);
+
+  }
 
 
   return (
-    <div>
+    <div className="content-container">
       <h1>Expense List of {props.name}</h1>
-      {  renderList }
+      <div className="list-header">
+        <div className="show-for-mobile">Expenses</div>
+        <div className="show-for-desktop">Expense</div>
+        <div className="show-for-desktop">Amount</div>
+      </div>
+      <div className="list-body">
+        {  renderList() }
+      </div>
     </div>
   );
 };
